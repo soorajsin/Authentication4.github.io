@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const history = useNavigate();
+
   const [inpVal, setInpVal] = useState({
     email: "",
     password: "",
@@ -50,6 +52,7 @@ const Login = () => {
       if (res.status === 201) {
         alert("User Login Successfully done");
         localStorage.setItem("userdataToken", res.result.token);
+        history("/dash");
         setInpVal({ ...inpVal, email: "", password: "" });
       }
     }
