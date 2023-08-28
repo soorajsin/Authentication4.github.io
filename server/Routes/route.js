@@ -154,6 +154,30 @@ router.get("/validate", authenticate, (req, res) => {
                               getData
                     })
           }
+});
+
+
+//user logout
+router.get("/logout", authenticate, async (req, res) => {
+          try {
+                    req.getData.tokens = req.getData.tokens.filter((curelem) => {
+                              return curelem.token !== req.token
+                    });
+
+                    res.clearCookie("authToken", {
+                              path: "/"
+                    })
+
+
+                    req.getData.save();
+
+                    res.status(201).json({status:201})
+          } catch (error) {
+                    res.status(201).json({
+                              status: 401,
+                              error
+                    })
+          }
 })
 
 
